@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.95" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.95/virl.xsd">
+    <node name="Ham" type="SIMPLE" subtype="IOSv" location="385,237">
+        <extensions>
+            <entry key="Auto-generate config" type="Boolean">false</entry>
+            <entry key="config" type="String">!
+! Last configuration change at 21:11:39 UTC Sun Dec 3 2017
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Ham
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+!
+enable secret 5 $1$Hx6Y$F3RqPONtOD/JR1iuZKElN0
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name virl.info
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+username cisco privilege 15 secret 5 $1$r2/B$LKzMEt1yOnx4.VMOv1LXk1
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description Loopback
+ ip address 10.1.1.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback1
+ description Loopback
+ ip address 10.1.2.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback2
+ description Loopback
+ ip address 10.1.3.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback3
+ description Loopback
+ ip address 10.1.4.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback4
+ description Loopback
+ ip address 10.1.5.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback5
+ description Loopback
+ ip address 10.1.6.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface GigabitEthernet0/0
+ ip address 10.255.0.158 255.255.0.0
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ description To Steak
+ ip address 172.16.1.1 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router rip
+ version 2
+ network 10.0.0.0
+ network 172.16.0.0
+ no auto-summary
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <node name="Steak" type="SIMPLE" subtype="IOSv" location="491,239">
+        <extensions>
+            <entry key="Auto-generate config" type="Boolean">false</entry>
+            <entry key="config" type="String">!
+! Last configuration change at 21:11:42 UTC Sun Dec 3 2017
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Steak
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+!
+enable secret 5 $1$3U9E$x7Abaw.7cBB8dqP8AaBbC.
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name virl.info
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+username cisco privilege 15 secret 5 $1$vo5H$hJgUAiE1ZTz3pJb5XWroH0
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 10.255.0.159 255.255.0.0
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ description To Ham
+ ip address 172.16.1.2 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/2
+ description To Eggs
+ ip address 172.16.2.2 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router ospf 1
+ router-id 2.2.2.2
+ auto-cost reference-bandwidth 1000
+ redistribute rip metric 5 subnets route-map ospf-in
+ network 172.16.2.0 0.0.0.255 area 0
+!
+router rip
+ version 2
+ redistribute ospf 1 metric 5 route-map rip-in
+ network 172.16.0.0
+ no auto-summary
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+route-map ospf-in permit 10
+ match ip address 2
+ set metric 1000
+!
+route-map ospf-in permit 20
+ set metric 500
+ set metric-type type-1
+!
+route-map rip-in permit 10
+ match ip address 1
+ set metric 10
+!
+!
+access-list 1 permit 172.17.1.0 0.0.0.255
+access-list 1 permit 172.17.2.0 0.0.0.255
+access-list 1 permit 172.17.3.0 0.0.0.255
+access-list 2 permit 10.1.1.0 0.0.0.255
+access-list 2 permit 10.1.2.0 0.0.0.255
+access-list 2 permit 10.1.3.0 0.0.0.255
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+    </node>
+    <node name="Eggs" type="SIMPLE" subtype="IOSv" location="612,239">
+        <extensions>
+            <entry key="Auto-generate config" type="Boolean">false</entry>
+            <entry key="config" type="String">!
+! Last configuration change at 21:11:44 UTC Sun Dec 3 2017
+!
+version 15.6
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Eggs
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+!
+enable secret 5 $1$3U9E$x7Abaw.7cBB8dqP8AaBbC.
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name virl.info
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+username cisco privilege 15 secret 5 $1$vo5H$hJgUAiE1ZTz3pJb5XWroH0
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description Loopback
+ ip address 172.17.1.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback1
+ description Loopback
+ ip address 172.17.2.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback2
+ description Loopback
+ ip address 172.17.3.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback3
+ description Loopback
+ ip address 172.17.4.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback4
+ description Loopback
+ ip address 172.17.5.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface Loopback5
+ description Loopback
+ ip address 172.17.6.1 255.255.255.0
+ ip ospf network point-to-point
+!
+interface GigabitEthernet0/0
+ ip address 10.255.0.157 255.255.0.0
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ description To Steak
+ ip address 172.16.2.1 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router ospf 1
+ router-id 3.3.3.3
+ auto-cost reference-bandwidth 1000
+ network 172.16.2.0 0.0.0.255 area 0
+ network 172.17.1.0 0.0.0.255 area 0
+ network 172.17.2.0 0.0.0.255 area 0
+ network 172.17.3.0 0.0.0.255 area 0
+ network 172.17.4.0 0.0.0.255 area 0
+ network 172.17.5.0 0.0.0.255 area 0
+ network 172.17.6.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <annotations>
+        <text x="591" y="151">OSPF</text>
+        <text x="371" y="152">RIP</text>
+        <text x="406" y="221" font-size="8">172.16.1.0/24</text>
+        <text x="519" y="221" font-size="8">172.16.2.0/24</text>
+        <text x="289" y="181" font-size="8">10.1.1.0/24&#xD;
+10.1.2.0/24&#xD;
+10.1.3.0/24&#xD;
+10.1.4.0/24&#xD;
+10.1.5.0/24&#xD;
+10.1.6.0/24</text>
+        <text x="654" y="184" font-size="8">172.17.1.0/24&#xD;
+172.17.2.0/24&#xD;
+172.17.3.0/24&#xD;
+172.17.4.0/24&#xD;
+172.17.5.0/24&#xD;
+172.17.6.0/24</text>
+        <rect x="256" y="145" radius="10" width="237" height="179" fill-opacity="0.25" fill="FF8080" stroke-width="3"/>
+        <rect x="494" y="146" radius="10" width="237" height="179" fill-opacity="0.25" fill="80FFFF" stroke-width="3"/>
+    </annotations>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[2]" src="/virl:topology/virl:node[3]/virl:interface[1]"/>
+</topology>
